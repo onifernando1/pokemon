@@ -29,7 +29,7 @@ image.onload = () => {
     0, // y start crop
     playerImage.width / 4, //crop one section of image (x axis),
     playerImage.height, // crop one section of image (y axis)
-    canvas.width / 2 - playerImage.width / 2,
+    canvas.width / 2 - playerImage.width / 4 / 2,
     canvas.height / 2 - playerImage.height / 2,
     playerImage.width / 4, //size to render
     playerImage.height // size to render
