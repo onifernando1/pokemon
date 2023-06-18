@@ -10,8 +10,13 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
+image.style.transform = "scale(4)";
+image.style.imageRendering = "pixelated";
 
 //Only call drawImage after image loaded
 image.onload = () => {
-  c.drawImage(image, 0, 0); //arg = html img, x position, y position)
+  const scaledWidth = image.width * 4; // Calculate the scaled width
+  const scaledHeight = image.height * 4; // Calculate the scaled height
+  c.imageSmoothingEnabled = false; // Disable image smoothing
+  c.drawImage(image, -1100, -700, scaledWidth, scaledHeight); // Start at house
 };
