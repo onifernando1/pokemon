@@ -52,6 +52,14 @@ class Sprite {
 
 const background = new Sprite({ position: { x: -930, y: -850 }, image: image });
 
+const keys = {
+  // Check if key pressed
+  w: { pressed: false },
+  a: { pressed: false },
+  s: { pressed: false },
+  d: { pressed: false },
+};
+
 function animate() {
   window.requestAnimationFrame(animate); // arg = function to be called recursively
 
@@ -77,16 +85,36 @@ window.addEventListener("keydown", (e) => {
   console.log(e.key);
   switch (e.key) {
     case "w":
-      console.log("pressed w ");
+      keys.w.pressed = true;
       break;
     case "a":
-      console.log("pressed a ");
+      keys.a.pressed = true;
       break;
     case "s":
-      console.log("pressed s");
+      keys.s.pressed = true;
       break;
     case "d":
-      console.log("pressed d");
+      keys.d.pressed = true;
+      break;
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  // Listen to one key lifted, and set pressed to false
+  // Listen to key movements to move player
+  console.log(e.key);
+  switch (e.key) {
+    case "w":
+      keys.w.pressed = false;
+      break;
+    case "a":
+      keys.a.pressed = false;
+      break;
+    case "s":
+      keys.s.pressed = false;
+      break;
+    case "d":
+      keys.d.pressed = false;
       break;
   }
 });
