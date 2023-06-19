@@ -147,6 +147,10 @@ function animate() {
     }
   });
 
+  battleZones.forEach((battleZone) => {
+    battleZone.draw();
+  });
+
   player.draw();
 
   foreground.draw(); //rendered last so we can travel behind objects
