@@ -68,7 +68,15 @@ class Sprite {
   }
 
   attack({ attack, recipient }) {
-    gsap.to(this.position, { x: this.position.x - 20 });
+    const tl = gsap.timeline();
+    tl.to(this.position, { x: this.position.x - 20 })
+      .to(this.position, {
+        x: this.position.x + 40,
+        duration: 0.1,
+      })
+      .to(this.position, {
+        x: this.position.x,
+      });
   }
 }
 
