@@ -1,5 +1,12 @@
 class Sprite {
-  constructor({ position, velocity, image, background, frames = { max: 1 } }) {
+  constructor({
+    position,
+    velocity,
+    image,
+    background,
+    frames = { max: 1 },
+    sprites = [],
+  }) {
     // object prevents order mattering
     this.position = position;
     this.image = image;
@@ -12,6 +19,7 @@ class Sprite {
     };
 
     this.moving = false;
+    this.sprites = sprites;
   }
 
   draw() {
@@ -39,6 +47,7 @@ class Sprite {
       ); // Declare player image after map loads as map larger, place in center
 
       if (!this.moving) return;
+
       if (this.frames.max > 1) {
         // only animate when player moves
 

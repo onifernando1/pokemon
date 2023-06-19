@@ -42,7 +42,19 @@ foregroundImage.style.imageRendering = "pixelated";
 
 const playerImage = new Image();
 playerImage.src = "./assets/images/playerDown.png";
-playerImage.onload = () => {};
+// playerImage.onload = () => {};
+
+const playerUp = new Image();
+playerUp.src = "./assets/images/playerUp.png";
+
+const playerDown = new Image();
+playerDown.src = "./assets/images/playerDown.png";
+
+const playerRight = new Image();
+playerRight.src = "./assets/images/playerRight.png";
+
+const playerLeft = new Image();
+playerLeft.src = "./assets/images/playerLeft.png";
 
 const player = new Sprite({
   position: {
@@ -51,6 +63,12 @@ const player = new Sprite({
   },
   image: playerImage,
   frames: { max: 4 },
+  sprites: {
+    up: playerUp,
+    down: playerDown,
+    right: playerRight,
+    left: playerLeft,
+  },
 });
 
 const background = new Sprite({
