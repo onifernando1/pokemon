@@ -114,6 +114,8 @@ let lastKey = ""; // to change movement when two keys pressed
 
 const testBoundary = new Boundary({ position: { x: 400, y: 400 } });
 
+const moveables = [background, testBoundary];
+
 function animate() {
   window.requestAnimationFrame(animate); // arg = function to be called recursively
 
@@ -139,17 +141,21 @@ function animate() {
   ); // Declare player image after map loads as map larger, place in center
 
   if (keys.w.pressed && lastKey == "w") {
-    background.position.y += 3;
-    testBoundary.position.y += 3;
+    moveables.forEach((moveable) => {
+      moveable.position.y += 3;
+    });
   } else if (keys.a.pressed && lastKey == "a") {
-    background.position.x += 3;
-    testBoundary.position.x += 3;
+    moveables.forEach((moveable) => {
+      moveable.position.x += 3;
+    });
   } else if (keys.s.pressed && lastKey == "s") {
-    background.position.y -= 3;
-    testBoundary.position.y -= 3;
+    moveables.forEach((moveable) => {
+      moveable.position.y -= 3;
+    });
   } else if (keys.d.pressed && lastKey == "d") {
-    background.position.x -= 3;
-    testBoundary.position.x -= 3;
+    moveables.forEach((moveable) => {
+      moveable.position.x -= 3;
+    });
   }
 }
 
