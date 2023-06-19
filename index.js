@@ -179,6 +179,20 @@ function animate() {
       }
     }
 
+    for (let i = 0; i < battleZones.length; i++) {
+      //loop through every boundary
+      const battleZone = battleZones[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: battleZone,
+        })
+      ) {
+        console.log("BATTLE");
+        break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
+      }
+    }
+
     if (moving)
       moveables.forEach((moveable) => {
         moveable.position.y += 3;
