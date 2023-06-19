@@ -46,7 +46,13 @@ class Sprite {
   draw() {
     const scaledWidth = this.image.width * 4; // Calculate the scaled width
     const scaledHeight = this.image.height * 4; // Calculate the scaled height
-    c.drawImage(this.image, -930, -850, scaledWidth, scaledHeight); // Start at house
+    c.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      scaledWidth,
+      scaledHeight
+    ); // Start at house
   }
 }
 
@@ -76,6 +82,11 @@ function animate() {
     playerImage.width / 4, //size to render
     playerImage.height // size to render
   ); // Declare player image after map loads as map larger, place in center
+
+  if (keys.w.pressed) background.position.y += 3;
+  else if (keys.a.pressed) background.position.x += 3;
+  else if (keys.s.pressed) background.position.y -= 3;
+  else if (keys.d.pressed) background.position.x -= 3;
 }
 
 animate();
