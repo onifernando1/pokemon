@@ -132,6 +132,8 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   ); // return true / false based on if there is a collision
 }
 
+const battle = { initiated: false };
+
 function animate() {
   window.requestAnimationFrame(animate); // arg = function to be called recursively
 
@@ -143,7 +145,6 @@ function animate() {
 
     if (rectangularCollision({ rectangle1: player, rectangle2: boundary })) {
       //if right side of player (player position + width) touches boundaries x, it colllide)
-      console.log("colliding");
     }
   });
 
@@ -154,6 +155,11 @@ function animate() {
   player.draw();
 
   foreground.draw(); //rendered last so we can travel behind objects
+
+  let moving = true;
+  player.moving = false;
+
+  if (battle.initiated) return;
 
   if (keys.a.pressed || keys.w.pressed || keys.s.pressed || keys.d.pressed) {
     for (let i = 0; i < battleZones.length; i++) {
@@ -177,16 +183,14 @@ function animate() {
           rectangle2: battleZone,
         }) &&
         overlappingArea > (player.width * player.height) / 2 && //divide by two to increase chance of battle and prevent trigger if travelling along edges
-        Math.random() < 0.1
+        Math.random() < 0.01
       ) {
         console.log("BATTLE");
+        battle.initiated = true;
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
     }
   }
-
-  let moving = true;
-  player.moving = false;
 
   if (keys.w.pressed && lastKey == "w") {
     player.moving = true;
@@ -203,7 +207,6 @@ function animate() {
           },
         })
       ) {
-        console.log("colliding");
         moving = false;
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
@@ -229,7 +232,6 @@ function animate() {
           },
         })
       ) {
-        console.log("colliding");
         moving = false;
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
@@ -255,7 +257,6 @@ function animate() {
           },
         })
       ) {
-        console.log("colliding");
         moving = false;
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
@@ -281,7 +282,6 @@ function animate() {
           },
         })
       ) {
-        console.log("colliding");
         moving = false;
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
