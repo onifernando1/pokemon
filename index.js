@@ -55,25 +55,6 @@ const playerImage = new Image();
 playerImage.src = "./assets/images/playerDown.png";
 playerImage.onload = () => {};
 
-//Only call drawImage after image loaded
-// image.onload = () => {
-//   const scaledWidth = image.width * 4; // Calculate the scaled width
-//   const scaledHeight = image.height * 4; // Calculate the scaled height
-//   c.imageSmoothingEnabled = false; // Disable image smoothing
-//   c.drawImage(image, -930, -850, scaledWidth, scaledHeight); // Start at house
-//   c.drawImage(
-//     playerImage,
-//     0, // x start crop
-//     0, // y start crop
-//     playerImage.width / 4, //crop one section of image (x axis),
-//     playerImage.height, // crop one section of image (y axis)
-//     canvas.width / 2 - playerImage.width / 4 / 2,
-//     canvas.height / 2 - playerImage.height / 2,
-//     playerImage.width / 4, //size to render
-//     playerImage.height // size to render
-//   ); // Declare player image after map loads as map larger, place in center
-// };
-
 class Sprite {
   constructor({ position, velocity, image, background, frames = { max: 1 } }) {
     // object prevents order mattering
@@ -81,6 +62,11 @@ class Sprite {
     this.image = image;
     this.background = background;
     this.frames = frames;
+
+    this.image.onload = () => {
+      this.width = this.image.width / this.frames.max; // will only work when image loaded
+      this.height = this.image.height;
+    };
   }
 
   draw() {
@@ -152,7 +138,12 @@ function animate() {
 
   player.draw();
 
-  if (player.position.x + player.width >= testBoundary.position.x) {
+  if (
+    player.position.x + player.width >= testBoundary.position.x &&
+    player.position.x <= testBoundary.position.x + testBoundary.width &&
+    player.position.y <= testBoundary.position.y + testBoundary.height &&
+    player.position.y + player.height >= testBoundary.position.y
+  ) {
     //if right side of player (player position + width) touches boundaries x, it colllide)
     console.log("colliding");
   }
