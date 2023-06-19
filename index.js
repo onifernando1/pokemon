@@ -106,8 +106,10 @@ function animate() {
   foreground.draw(); //rendered last so we can travel behind objects
 
   let moving = true;
+  player.moving = false;
 
   if (keys.w.pressed && lastKey == "w") {
+    player.moving = true;
     for (let i = 0; i < boundaries.length; i++) {
       //loop through every boundary
       const boundary = boundaries[i];
@@ -131,6 +133,8 @@ function animate() {
         moveable.position.y += 3;
       });
   } else if (keys.a.pressed && lastKey == "a") {
+    player.moving = true;
+
     for (let i = 0; i < boundaries.length; i++) {
       //loop through every boundary
       const boundary = boundaries[i];
@@ -154,6 +158,8 @@ function animate() {
         moveable.position.x += 3;
       });
   } else if (keys.s.pressed && lastKey == "s") {
+    player.moving = true;
+
     for (let i = 0; i < boundaries.length; i++) {
       //loop through every boundary
       const boundary = boundaries[i];
@@ -177,6 +183,8 @@ function animate() {
         moveable.position.y -= 3;
       });
   } else if (keys.d.pressed && lastKey == "d") {
+    player.moving = true;
+
     for (let i = 0; i < boundaries.length; i++) {
       //loop through every boundary
       const boundary = boundaries[i];

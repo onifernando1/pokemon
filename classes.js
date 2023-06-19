@@ -10,6 +10,8 @@ class Sprite {
       this.width = this.image.width / this.frames.max; // will only work when image loaded
       this.height = this.image.height;
     };
+
+    this.moving = false;
   }
 
   draw() {
@@ -36,7 +38,10 @@ class Sprite {
         this.image.height // size to render
       ); // Declare player image after map loads as map larger, place in center
 
+      if (!this.moving) return;
       if (this.frames.max > 1) {
+        // only animate when player moves
+
         this.frames.elapsed++;
       }
 
