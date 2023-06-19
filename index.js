@@ -66,6 +66,7 @@ const keys = {
   d: { pressed: false },
 };
 
+let lastKey = ""; // to change movement when two keys pressed
 function animate() {
   window.requestAnimationFrame(animate); // arg = function to be called recursively
 
@@ -83,10 +84,10 @@ function animate() {
     playerImage.height // size to render
   ); // Declare player image after map loads as map larger, place in center
 
-  if (keys.w.pressed) background.position.y += 3;
-  else if (keys.a.pressed) background.position.x += 3;
-  else if (keys.s.pressed) background.position.y -= 3;
-  else if (keys.d.pressed) background.position.x -= 3;
+  if (keys.w.pressed && lastKey == "w") background.position.y += 3;
+  else if (keys.a.pressed && lastKey == "a") background.position.x += 3;
+  else if (keys.s.pressed && lastKey == "s") background.position.y -= 3;
+  else if (keys.d.pressed && lastKey == "d") background.position.x -= 3;
 }
 
 animate();
@@ -97,15 +98,19 @@ window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "w":
       keys.w.pressed = true;
+      lastKey = "w";
       break;
     case "a":
       keys.a.pressed = true;
+      lastKey = "a";
       break;
     case "s":
       keys.s.pressed = true;
+      lastKey = "s";
       break;
     case "d":
       keys.d.pressed = true;
+      lastKey = "d";
       break;
   }
 });
