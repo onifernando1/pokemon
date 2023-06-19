@@ -124,6 +124,15 @@ const testBoundary = new Boundary({ position: { x: 400, y: 400 } });
 
 const moveables = [background, testBoundary];
 
+function rectangularCollision({ rectangle1, rectangle2 }) {
+  return (
+    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+    rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+  ); // return true / false based on if there is a collision
+}
+
 function animate() {
   window.requestAnimationFrame(animate); // arg = function to be called recursively
 
@@ -138,12 +147,7 @@ function animate() {
 
   player.draw();
 
-  if (
-    player.position.x + player.width >= testBoundary.position.x &&
-    player.position.x <= testBoundary.position.x + testBoundary.width &&
-    player.position.y <= testBoundary.position.y + testBoundary.height &&
-    player.position.y + player.height >= testBoundary.position.y
-  ) {
+  if (rectangularCollision({ rectangle1: player, rectangle2: testBoundary })) {
     //if right side of player (player position + width) touches boundaries x, it colllide)
     console.log("colliding");
   }
