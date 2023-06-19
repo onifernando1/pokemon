@@ -155,6 +155,22 @@ function animate() {
 
   foreground.draw(); //rendered last so we can travel behind objects
 
+  if (keys.a.pressed || keys.w.pressed || keys.s.pressed || keys.d.pressed) {
+    for (let i = 0; i < battleZones.length; i++) {
+      //loop through every boundary
+      const battleZone = battleZones[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: battleZone,
+        })
+      ) {
+        console.log("BATTLE");
+        break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
+      }
+    }
+  }
+
   let moving = true;
   player.moving = false;
 
@@ -175,20 +191,6 @@ function animate() {
       ) {
         console.log("colliding");
         moving = false;
-        break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
-      }
-    }
-
-    for (let i = 0; i < battleZones.length; i++) {
-      //loop through every boundary
-      const battleZone = battleZones[i];
-      if (
-        rectangularCollision({
-          rectangle1: player,
-          rectangle2: battleZone,
-        })
-      ) {
-        console.log("BATTLE");
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
     }
