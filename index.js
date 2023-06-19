@@ -4,8 +4,6 @@ canvas.height = 576;
 
 const c = canvas.getContext("2d");
 
-console.log(battleZonesData);
-
 const collisionsMap = [];
 
 for (let i = 0; i < collisions.length; i += 70) {
@@ -187,6 +185,22 @@ function animate() {
       ) {
         console.log("BATTLE");
         battle.initiated = true;
+        gsap.to("#transition", {
+          opacity: 1,
+          repeat: 3,
+          yoyo: true,
+          duration: 0.4,
+          onComplete() {
+            gsap.to("#transition", {
+              opacity: 1,
+              duration: 0.4,
+            });
+
+            // activate new animation loop
+
+            // deactivate old animation loop
+          },
+        });
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
     }
