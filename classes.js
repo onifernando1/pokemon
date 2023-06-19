@@ -4,7 +4,7 @@ class Sprite {
     this.position = position;
     this.image = image;
     this.background = background;
-    this.frames = frames;
+    this.frames = { ...frames, val: 0, elapsed: 0 };
 
     this.image.onload = () => {
       this.width = this.image.width / this.frames.max; // will only work when image loaded
@@ -23,10 +23,10 @@ class Sprite {
         scaledWidth,
         scaledHeight
       ); // Start at house
-    } else
+    } else {
       c.drawImage(
         this.image,
-        0, // x start crop
+        this.frames.val * this.width, // x start crop at next player sprite image
         0, // y start crop
         this.image.width / this.frames.max, //crop one section of image (x axis),
         this.image.height, // crop one section of image (y axis)
@@ -35,6 +35,21 @@ class Sprite {
         this.image.width / this.frames.max, //size to render
         this.image.height // size to render
       ); // Declare player image after map loads as map larger, place in center
+
+      if (this.frames.max > 1) {
+        this.frames.elapsed++;
+      }
+
+      if (this.frames.elapsed % 10 === 0) {
+        if (this.frames.val < this.frames.max - 1) {
+          this.frames.val++;
+        }
+        // as player is 4 images side by side, loop through and then restart
+        else {
+          this.frames.val = 0;
+        }
+      }
+    }
   }
 }
 
