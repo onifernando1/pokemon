@@ -6,6 +6,7 @@ class Sprite {
     background,
     frames = { max: 1 },
     sprites = [],
+    animate = false,
   }) {
     // object prevents order mattering
     this.position = position;
@@ -18,7 +19,7 @@ class Sprite {
       this.height = this.image.height;
     };
 
-    this.moving = false;
+    this.animate = animate;
     this.sprites = sprites;
   }
 
@@ -46,7 +47,7 @@ class Sprite {
         this.image.height // size to render
       ); // Declare player image after map loads as map larger, place in center
 
-      if (!this.moving) return;
+      if (!this.animate) return;
 
       if (this.frames.max > 1) {
         // only animate when player moves
