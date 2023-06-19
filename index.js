@@ -4,9 +4,15 @@ canvas.width = 1024;
 canvas.height = 576;
 
 const c = canvas.getContext("2d");
-c.fillStyle = "white";
-c.fillRect(0, 0, canvas.width, canvas.height);
 
+const collisionsMap = [];
+
+for (let i = 0; i < collisions.length; i += 70) {
+  // loop through 70 tiles(Width ) (map resize -> 70 tiles wide)
+  collisionsMap.push(collisions.slice(i, i + 70));
+}
+
+console.log(collisionsMap);
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
 image.style.transform = "scale(4)";
