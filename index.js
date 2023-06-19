@@ -4,11 +4,20 @@ canvas.height = 576;
 
 const c = canvas.getContext("2d");
 
+console.log(battleZonesData);
+
 const collisionsMap = [];
 
 for (let i = 0; i < collisions.length; i += 70) {
   // loop through 70 tiles(Width ) (map resize -> 70 tiles wide)
   collisionsMap.push(collisions.slice(i, i + 70));
+}
+
+const battleZonesMap = [];
+
+for (let i = 0; i < battleZonesData.length; i += 70) {
+  // loop through 70 tiles(Width ) (map resize -> 70 tiles wide)
+  battleZonesMap.push(battleZonesData.slice(i, i + 70));
 }
 
 const boundaries = []; // store all boundaries
@@ -29,6 +38,25 @@ collisionsMap.forEach((row, i) => {
       );
   });
 });
+
+const battleZones = [];
+
+battleZonesMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol == 1025)
+      // only create boundary if boundary exists
+      battleZones.push(
+        new Boundary({
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
+        })
+      );
+  });
+});
+
+console.log(battleZones);
 
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
