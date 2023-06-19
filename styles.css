@@ -26,4 +26,40 @@ body {
   left: 0;
   right: 0;
   border: 4px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+.attack-options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 180%;
+}
+
+.attack-options button {
+  border: none;
+  font-size: 2rem;
+  background-color: white;
+  height: 135px;
+  width: 50%;
+}
+
+.attack-options button:hover {
+  background-color: rgb(200, 197, 197);
+}
+
+.attack-type {
+  border-left: 4px solid black;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
