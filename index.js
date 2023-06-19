@@ -313,9 +313,16 @@ function animate() {
 
 animate();
 
+const battleBackgroundImage = new Image();
+battleBackgroundImage.src = "./assets/images/battleBackground.png";
+const battleBackground = new Sprite({
+  position: { x: 0, y: 0 },
+  image: battleBackgroundImage,
+});
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
   console.log("animating battle");
+  battleBackground.draw();
 }
 
 window.addEventListener("keydown", (e) => {
