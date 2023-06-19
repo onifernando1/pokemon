@@ -198,10 +198,15 @@ function animate() {
             gsap.to("#transition", {
               opacity: 1,
               duration: 0.4,
+              onComplete() {
+                // activate new animation loop
+                animateBattle();
+                gsap.to("#transition", {
+                  opacity: 0,
+                  duration: 0.4,
+                });
+              },
             });
-
-            // activate new animation loop
-            animateBattle();
           },
         });
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
