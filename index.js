@@ -324,6 +324,13 @@ const battleBackground = new Sprite({
   position: { x: 0, y: 0 },
   image: battleBackgroundImage,
 });
+
+
+const draggleImage = new Image();
+draggleImage.src = "./assets/images/draggleSprite.png";
+
+const draggle = new Sprite({ position: { x: 280, y: 325 }, image: });
+
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
   console.log("animating battle");
