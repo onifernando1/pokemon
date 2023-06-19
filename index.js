@@ -121,7 +121,7 @@ const keys = {
 
 let lastKey = ""; // to change movement when two keys pressed
 
-const moveables = [background, ...boundaries, foreground]; //... moves all items into array, so no array in an array
+const moveables = [background, ...boundaries, foreground, ...battleZones]; //... moves all items into array, so no array in an array
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
