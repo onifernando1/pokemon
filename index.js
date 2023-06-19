@@ -19,7 +19,7 @@ class Boundary {
   constructor({ position }) {
     this.position = position;
     this.width = 48; // exported at 12 pixeled, then scaled by 4
-    this.width = 48;
+    this.height = 48;
   }
 
   draw() {
@@ -30,17 +30,24 @@ class Boundary {
 
 const boundaries = []; // store all boundaries
 
+const offset = { x: -930, y: -850 }; // Offset image to centre
+
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol == 1025)
       // only create boundary if boundary exists
       boundaries.push(
         new Boundary({
-          position: { x: j * Boundary.width, y: i * Boundary.height },
+          position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y,
+          },
         })
       );
   });
 });
+
+console.log(boundaries);
 
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
@@ -90,7 +97,10 @@ class Sprite {
   }
 }
 
-const background = new Sprite({ position: { x: -930, y: -850 }, image: image });
+const background = new Sprite({
+  position: { x: offset.x, y: offset.y },
+  image: image,
+});
 
 const keys = {
   // Check if key pressed
@@ -101,11 +111,21 @@ const keys = {
 };
 
 let lastKey = ""; // to change movement when two keys pressed
+
+const testBoundary = new Boundary({ position: { x: 400, y: 400 } });
+
 function animate() {
   window.requestAnimationFrame(animate); // arg = function to be called recursively
 
   c.imageSmoothingEnabled = false; // Disable image smoothing
   background.draw();
+
+  //   boundaries.forEach((boundary) => {
+  //     boundary.draw();
+  //   });
+
+  testBoundary.draw();
+
   c.drawImage(
     playerImage,
     0, // x start crop
@@ -118,10 +138,19 @@ function animate() {
     playerImage.height // size to render
   ); // Declare player image after map loads as map larger, place in center
 
-  if (keys.w.pressed && lastKey == "w") background.position.y += 3;
-  else if (keys.a.pressed && lastKey == "a") background.position.x += 3;
-  else if (keys.s.pressed && lastKey == "s") background.position.y -= 3;
-  else if (keys.d.pressed && lastKey == "d") background.position.x -= 3;
+  if (keys.w.pressed && lastKey == "w") {
+    background.position.y += 3;
+    testBoundary.position.y += 3;
+  } else if (keys.a.pressed && lastKey == "a") {
+    background.position.x += 3;
+    testBoundary.position.x += 3;
+  } else if (keys.s.pressed && lastKey == "s") {
+    background.position.y -= 3;
+    testBoundary.position.y -= 3;
+  } else if (keys.d.pressed && lastKey == "d") {
+    background.position.x -= 3;
+    testBoundary.position.x -= 3;
+  }
 }
 
 animate();
