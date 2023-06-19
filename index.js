@@ -174,17 +174,74 @@ function animate() {
         moveable.position.y += 3;
       });
   } else if (keys.a.pressed && lastKey == "a") {
-    moveables.forEach((moveable) => {
-      moveable.position.x += 3;
-    });
+    for (let i = 0; i < boundaries.length; i++) {
+      //loop through every boundary
+      const boundary = boundaries[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: {
+            ...boundary,
+            position: { x: boundary.position.x + 3, y: boundary.position.y }, // create copy of boundary, change position to 3 ahead, to predict future collision
+          },
+        })
+      ) {
+        console.log("colliding");
+        moving = false;
+        break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
+      }
+    }
+
+    if (moving)
+      moveables.forEach((moveable) => {
+        moveable.position.x += 3;
+      });
   } else if (keys.s.pressed && lastKey == "s") {
-    moveables.forEach((moveable) => {
-      moveable.position.y -= 3;
-    });
+    for (let i = 0; i < boundaries.length; i++) {
+      //loop through every boundary
+      const boundary = boundaries[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: {
+            ...boundary,
+            position: { x: boundary.position.x, y: boundary.position.y - 3 }, // create copy of boundary, change position to 3 ahead, to predict future collision
+          },
+        })
+      ) {
+        console.log("colliding");
+        moving = false;
+        break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
+      }
+    }
+
+    if (moving)
+      moveables.forEach((moveable) => {
+        moveable.position.y -= 3;
+      });
   } else if (keys.d.pressed && lastKey == "d") {
-    moveables.forEach((moveable) => {
-      moveable.position.x -= 3;
-    });
+    for (let i = 0; i < boundaries.length; i++) {
+      //loop through every boundary
+      const boundary = boundaries[i];
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: {
+            ...boundary,
+            position: { x: boundary.position.x - 3, y: boundary.position.y }, // create copy of boundary, change position to 3 ahead, to predict future collision
+          },
+        })
+      ) {
+        console.log("colliding");
+        moving = false;
+        break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
+      }
+    }
+
+    if (moving)
+      moveables.forEach((moveable) => {
+        moveable.position.x -= 3;
+      });
   }
 }
 
