@@ -103,7 +103,7 @@ function animate() {
 
   player.draw();
 
-  foreground.draw();
+  foreground.draw(); //rendered last so we can travel behind objects
 
   let moving = true;
 
