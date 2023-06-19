@@ -120,9 +120,7 @@ const keys = {
 
 let lastKey = ""; // to change movement when two keys pressed
 
-const testBoundary = new Boundary({ position: { x: 400, y: 400 } });
-
-const moveables = [background, testBoundary];
+const moveables = [background, ...boundaries]; //... moves all items into array, so no array in an array
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -139,18 +137,17 @@ function animate() {
   c.imageSmoothingEnabled = false; // Disable image smoothing
   background.draw();
 
-  //   boundaries.forEach((boundary) => {
-  //     boundary.draw();
-  //   });
+  boundaries.forEach((boundary) => {
+    boundary.draw();
 
-  testBoundary.draw();
+    if (rectangularCollision({ rectangle1: player, rectangle2: boundary })) {
+      //if right side of player (player position + width) touches boundaries x, it colllide)
+      console.log("colliding");
+    }
+  });
 
   player.draw();
 
-  if (rectangularCollision({ rectangle1: player, rectangle2: testBoundary })) {
-    //if right side of player (player position + width) touches boundaries x, it colllide)
-    console.log("colliding");
-  }
   if (keys.w.pressed && lastKey == "w") {
     moveables.forEach((moveable) => {
       moveable.position.y += 3;
