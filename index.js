@@ -12,7 +12,36 @@ for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, i + 70));
 }
 
-console.log(collisionsMap);
+class Boundary {
+  static width = 48;
+  static height = 48;
+
+  constructor({ position }) {
+    this.position = position;
+    this.width = 48; // exported at 12 pixeled, then scaled by 4
+    this.width = 48;
+  }
+
+  draw() {
+    c.fillStyle = "red";
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+}
+
+const boundaries = []; // store all boundaries
+
+collisionsMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol == 1025)
+      // only create boundary if boundary exists
+      boundaries.push(
+        new Boundary({
+          position: { x: j * Boundary.width, y: i * Boundary.height },
+        })
+      );
+  });
+});
+
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
 image.style.transform = "scale(4)";
