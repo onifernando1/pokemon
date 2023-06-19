@@ -1,4 +1,3 @@
-console.log("hello world");
 const canvas = document.querySelector("canvas");
 canvas.width = 1024;
 canvas.height = 576;
@@ -47,8 +46,6 @@ collisionsMap.forEach((row, i) => {
   });
 });
 
-console.log(boundaries);
-
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
 image.style.transform = "scale(4)";
@@ -78,28 +75,53 @@ playerImage.onload = () => {};
 // };
 
 class Sprite {
-  constructor({ position, velocity, image }) {
+  constructor({ position, velocity, image, background, frames = { max: 1 } }) {
     // object prevents order mattering
     this.position = position;
     this.image = image;
+    this.background = background;
+    this.frames = frames;
   }
 
   draw() {
-    const scaledWidth = this.image.width * 4; // Calculate the scaled width
-    const scaledHeight = this.image.height * 4; // Calculate the scaled height
-    c.drawImage(
-      this.image,
-      this.position.x,
-      this.position.y,
-      scaledWidth,
-      scaledHeight
-    ); // Start at house
+    if (this.background == true) {
+      const scaledWidth = this.image.width * 4; // Calculate the scaled width
+      const scaledHeight = this.image.height * 4; // Calculate the scaled height
+      c.drawImage(
+        this.image,
+        this.position.x,
+        this.position.y,
+        scaledWidth,
+        scaledHeight
+      ); // Start at house
+    } else
+      c.drawImage(
+        this.image,
+        0, // x start crop
+        0, // y start crop
+        this.image.width / this.frames.max, //crop one section of image (x axis),
+        this.image.height, // crop one section of image (y axis)
+        this.position.x,
+        this.position.y,
+        this.image.width / this.frames.max, //size to render
+        this.image.height // size to render
+      ); // Declare player image after map loads as map larger, place in center
   }
 }
+
+const player = new Sprite({
+  position: {
+    x: canvas.width / 2 - 192 / 4 / 2,
+    y: canvas.height / 2 - 68 / 2,
+  },
+  image: playerImage,
+  frames: { max: 4 },
+});
 
 const background = new Sprite({
   position: { x: offset.x, y: offset.y },
   image: image,
+  background: true,
 });
 
 const keys = {
@@ -128,18 +150,12 @@ function animate() {
 
   testBoundary.draw();
 
-  c.drawImage(
-    playerImage,
-    0, // x start crop
-    0, // y start crop
-    playerImage.width / 4, //crop one section of image (x axis),
-    playerImage.height, // crop one section of image (y axis)
-    canvas.width / 2 - playerImage.width / 4 / 2,
-    canvas.height / 2 - playerImage.height / 2,
-    playerImage.width / 4, //size to render
-    playerImage.height // size to render
-  ); // Declare player image after map loads as map larger, place in center
+  player.draw();
 
+  if (player.position.x + player.width >= testBoundary.position.x) {
+    //if right side of player (player position + width) touches boundaries x, it colllide)
+    console.log("colliding");
+  }
   if (keys.w.pressed && lastKey == "w") {
     moveables.forEach((moveable) => {
       moveable.position.y += 3;
@@ -163,7 +179,6 @@ animate();
 
 window.addEventListener("keydown", (e) => {
   // Listen to key movements to move player
-  console.log(e.key);
   switch (e.key) {
     case "w":
       keys.w.pressed = true;
@@ -187,7 +202,6 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
   // Listen to one key lifted, and set pressed to false
   // Listen to key movements to move player
-  console.log(e.key);
   switch (e.key) {
     case "w":
       keys.w.pressed = false;
