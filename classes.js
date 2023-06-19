@@ -1,19 +1,3 @@
-class Boundary {
-  static width = 48;
-  static height = 48;
-
-  constructor({ position }) {
-    this.position = position;
-    this.width = 48; // exported at 12 pixeled, then scaled by 4
-    this.height = 48;
-  }
-
-  draw() {
-    c.fillStyle = "rgba(255,0,0,0.3";
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
-}
-
 class Sprite {
   constructor({ position, velocity, image, background, frames = { max: 1 } }) {
     // object prevents order mattering
@@ -51,5 +35,21 @@ class Sprite {
         this.image.width / this.frames.max, //size to render
         this.image.height // size to render
       ); // Declare player image after map loads as map larger, place in center
+  }
+}
+
+class Boundary {
+  static width = 48;
+  static height = 48;
+
+  constructor({ position }) {
+    this.position = position;
+    this.width = 48; // exported at 12 pixeled, then scaled by 4
+    this.height = 48;
+  }
+
+  draw() {
+    c.fillStyle = "rgba(255,0,0,0.3";
+    c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }

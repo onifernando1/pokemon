@@ -11,22 +11,6 @@ for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, i + 70));
 }
 
-// class Boundary {
-//   static width = 48;
-//   static height = 48;
-
-//   constructor({ position }) {
-//     this.position = position;
-//     this.width = 48; // exported at 12 pixeled, then scaled by 4
-//     this.height = 48;
-//   }
-
-//   draw() {
-//     c.fillStyle = "rgba(255,0,0,0.3";
-//     c.fillRect(this.position.x, this.position.y, this.width, this.height);
-//   }
-// }
-
 const boundaries = []; // store all boundaries
 
 const offset = { x: -930, y: -850 }; // Offset image to centre
@@ -51,49 +35,14 @@ image.src = "./assets/images/town.png";
 image.style.transform = "scale(4)";
 image.style.imageRendering = "pixelated";
 
+const foregroundImage = new Image(); // create HTML Image
+foregroundImage.src = "./assets/images/foregroundOriginal.png";
+foregroundImage.style.transform = "scale(4)";
+foregroundImage.style.imageRendering = "pixelated";
+
 const playerImage = new Image();
 playerImage.src = "./assets/images/playerDown.png";
 playerImage.onload = () => {};
-
-// class Sprite {
-//   constructor({ position, velocity, image, background, frames = { max: 1 } }) {
-//     // object prevents order mattering
-//     this.position = position;
-//     this.image = image;
-//     this.background = background;
-//     this.frames = frames;
-
-//     this.image.onload = () => {
-//       this.width = this.image.width / this.frames.max; // will only work when image loaded
-//       this.height = this.image.height;
-//     };
-//   }
-
-//   draw() {
-//     if (this.background == true) {
-//       const scaledWidth = this.image.width * 4; // Calculate the scaled width
-//       const scaledHeight = this.image.height * 4; // Calculate the scaled height
-//       c.drawImage(
-//         this.image,
-//         this.position.x,
-//         this.position.y,
-//         scaledWidth,
-//         scaledHeight
-//       ); // Start at house
-//     } else
-//       c.drawImage(
-//         this.image,
-//         0, // x start crop
-//         0, // y start crop
-//         this.image.width / this.frames.max, //crop one section of image (x axis),
-//         this.image.height, // crop one section of image (y axis)
-//         this.position.x,
-//         this.position.y,
-//         this.image.width / this.frames.max, //size to render
-//         this.image.height // size to render
-//       ); // Declare player image after map loads as map larger, place in center
-//   }
-// }
 
 const player = new Sprite({
   position: {
@@ -110,7 +59,11 @@ const background = new Sprite({
   background: true,
 });
 
-const foreground = new Sprite({ background: true });
+const foreground = new Sprite({
+  background: true,
+  image: foregroundImage,
+  position: { x: offset.x, y: offset.y },
+});
 
 const keys = {
   // Check if key pressed
@@ -122,7 +75,7 @@ const keys = {
 
 let lastKey = ""; // to change movement when two keys pressed
 
-const moveables = [background, ...boundaries]; //... moves all items into array, so no array in an array
+const moveables = [background, ...boundaries, foreground]; //... moves all items into array, so no array in an array
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -149,6 +102,8 @@ function animate() {
   });
 
   player.draw();
+
+  foreground.draw();
 
   let moving = true;
 
