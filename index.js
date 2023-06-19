@@ -176,7 +176,8 @@ function animate() {
           rectangle1: player,
           rectangle2: battleZone,
         }) &&
-        overlappingArea > (player.width * player.height) / 2 //divide by two to increase chance of battle and prevent trigger if travelling along edges
+        overlappingArea > (player.width * player.height) / 2 && //divide by two to increase chance of battle and prevent trigger if travelling along edges
+        Math.random() < 0.1
       ) {
         console.log("BATTLE");
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
