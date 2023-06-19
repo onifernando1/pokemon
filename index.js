@@ -133,8 +133,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 const battle = { initiated: false };
 
 function animate() {
-  window.requestAnimationFrame(animate); // arg = function to be called recursively
-
+  const animationId = window.requestAnimationFrame(animate); // arg = function to be called recursively
   c.imageSmoothingEnabled = false; // Disable image smoothing
   background.draw();
 
@@ -184,7 +183,12 @@ function animate() {
         Math.random() < 0.01
       ) {
         console.log("BATTLE");
+
+        // deactivate old animation loop
+        window.cancelAnimationFrame(animationId);
+
         battle.initiated = true;
+
         gsap.to("#transition", {
           opacity: 1,
           repeat: 3,
@@ -197,8 +201,7 @@ function animate() {
             });
 
             // activate new animation loop
-
-            // deactivate old animation loop
+            animateBattle();
           },
         });
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
@@ -309,6 +312,11 @@ function animate() {
 }
 
 animate();
+
+function animateBattle() {
+  window.requestAnimationFrame(animateBattle);
+  console.log("animating battle");
+}
 
 window.addEventListener("keydown", (e) => {
   // Listen to key movements to move player
