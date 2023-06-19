@@ -66,6 +66,10 @@ class Sprite {
       }
     }
   }
+
+  attack({ attack, recipient }) {
+    gsap.to(this.position, { x: this.position.x - 20 });
+  }
 }
 
 class Boundary {

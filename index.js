@@ -355,6 +355,18 @@ function animateBattle() {
 
 animateBattle();
 
+addEventListener("click", () => {
+  console.log("clicked");
+});
+
+document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", () => {
+    emby.attack({
+      attack: { name: "Tackle", damage: 10, type: "Normal" },
+      recipient: draggle,
+    });
+  });
+});
 window.addEventListener("keydown", (e) => {
   // Listen to key movements to move player
   switch (e.key) {
