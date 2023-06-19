@@ -316,7 +316,7 @@ function animate() {
   }
 }
 
-animate();
+// animate();
 
 const battleBackgroundImage = new Image();
 battleBackgroundImage.src = "./assets/images/battleBackground.png";
@@ -352,6 +352,8 @@ function animateBattle() {
   draggle.draw();
   emby.draw();
 }
+
+animateBattle();
 
 window.addEventListener("keydown", (e) => {
   // Listen to key movements to move player
