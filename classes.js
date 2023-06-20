@@ -7,6 +7,7 @@ class Sprite {
     frames = { max: 1, hold: 10 },
     sprites = [],
     animate = false,
+    isEnemy = false,
   }) {
     // object prevents order mattering
     this.position = position;
@@ -22,6 +23,8 @@ class Sprite {
 
     this.animate = animate;
     this.sprites = sprites;
+    this.health = 100;
+    this.isEnemy = isEnemy;
   }
 
   draw() {
@@ -74,13 +77,16 @@ class Sprite {
 
   attack({ attack, recipient }) {
     const tl = gsap.timeline();
-    tl.to(this.position, { x: this.position.x - 20 })
+    let movementDistance = 20;
+    if (this.isEnemy) movementDistance = -20;
+
+    tl.to(this.position, { x: this.position.x - movementDistance })
       .to(this.position, {
-        x: this.position.x + 40,
+        x: this.position.x + movementDistance * 2,
         duration: 0.1,
-        onComplete() {
+        onComplete: () => {
           gsap.to("#enemyHealthBar", {
-            width: "50%",
+            width: this.health - attack.damage + "%",
           });
 
           gsap.to(recipient.position, {

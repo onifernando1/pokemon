@@ -333,6 +333,7 @@ const draggle = new Sprite({
   image: draggleImage,
   frames: { max: 4, hold: 30 },
   animate: true,
+  isEnemy: true,
 });
 
 const embyImage = new Image();
@@ -361,9 +362,9 @@ addEventListener("click", () => {
 
 document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", () => {
-    emby.attack({
+    draggle.attack({
       attack: { name: "Tackle", damage: 10, type: "Normal" },
-      recipient: draggle,
+      recipient: emby,
     });
   });
 });
