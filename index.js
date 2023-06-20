@@ -8,12 +8,42 @@ const offset = { x: -930, y: -850 }; // Coordinates to offset image to centre
 
 //Set up collisions and battle zones
 
-const collisionsMap = [];
+function setUpCollisions() {
+  const collisionsMap = [];
 
-for (let i = 0; i < collisions.length; i += 70) {
-  // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
-  collisionsMap.push(collisions.slice(i, i + 70));
+  for (let i = 0; i < collisions.length; i += 70) {
+    // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
+    collisionsMap.push(collisions.slice(i, i + 70));
+  }
+
+  const boundaries = []; // store all boundaries
+
+  collisionsMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+      if (symbol == 1025)
+        // only create boundary if boundary exists
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y,
+            },
+          })
+        );
+    });
+  });
+
+  return boundaries;
 }
+
+const boundaries = setUpCollisions();
+
+// const collisionsMap = [];
+
+// for (let i = 0; i < collisions.length; i += 70) {
+//   // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
+//   collisionsMap.push(collisions.slice(i, i + 70));
+// }
 
 const battleZonesMap = [];
 
@@ -22,22 +52,20 @@ for (let i = 0; i < battleZonesData.length; i += 70) {
   battleZonesMap.push(battleZonesData.slice(i, i + 70));
 }
 
-const boundaries = []; // store all boundaries
-
-collisionsMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol == 1025)
-      // only create boundary if boundary exists
-      boundaries.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y,
-          },
-        })
-      );
-  });
-});
+// collisionsMap.forEach((row, i) => {
+//   row.forEach((symbol, j) => {
+//     if (symbol == 1025)
+//       // only create boundary if boundary exists
+//       boundaries.push(
+//         new Boundary({
+//           position: {
+//             x: j * Boundary.width + offset.x,
+//             y: i * Boundary.height + offset.y,
+//           },
+//         })
+//       );
+//   });
+// });
 
 const battleZones = [];
 
