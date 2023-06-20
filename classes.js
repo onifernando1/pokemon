@@ -13,6 +13,7 @@ class Sprite {
     this.image = image;
     this.background = background;
     this.frames = { ...frames, val: 0, elapsed: 0 };
+    this.opacity = 1;
 
     this.image.onload = () => {
       this.width = this.image.width / this.frames.max; // will only work when image loaded
@@ -35,6 +36,8 @@ class Sprite {
         scaledHeight
       ); // Start at house
     } else {
+      c.save(); // if global property used, only affects this not rest of canvas
+      c.globalAlpha = this.opacity;
       c.drawImage(
         this.image,
         this.frames.val * this.width, // x start crop at next player sprite image
@@ -46,6 +49,8 @@ class Sprite {
         this.image.width / this.frames.max, //size to render
         this.image.height // size to render
       ); // Declare player image after map loads as map larger, place in center
+
+      c.restore(); // if global property used, only affects this not rest of canvas
 
       if (!this.animate) return;
 
@@ -78,6 +83,13 @@ class Sprite {
             x: recipient.position.x + 10,
             yoyo: true,
             repeat: 5,
+            duration: 0.08,
+          });
+
+          gsap.to(recipient, {
+            opacity: 0,
+            repeat: 5,
+            yoyo: true,
             duration: 0.08,
           });
         },
