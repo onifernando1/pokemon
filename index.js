@@ -1,26 +1,28 @@
+//Set up canvas
 const canvas = document.querySelector("canvas");
 canvas.width = 1024;
 canvas.height = 576;
-
 const c = canvas.getContext("2d");
+
+const offset = { x: -930, y: -850 }; // Coordinates to offset image to centre
+
+//Set up collisions and battle zones
 
 const collisionsMap = [];
 
 for (let i = 0; i < collisions.length; i += 70) {
-  // loop through 70 tiles(Width ) (map resize -> 70 tiles wide)
+  // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
   collisionsMap.push(collisions.slice(i, i + 70));
 }
 
 const battleZonesMap = [];
 
 for (let i = 0; i < battleZonesData.length; i += 70) {
-  // loop through 70 tiles(Width ) (map resize -> 70 tiles wide)
+  // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
   battleZonesMap.push(battleZonesData.slice(i, i + 70));
 }
 
 const boundaries = []; // store all boundaries
-
-const offset = { x: -930, y: -850 }; // Offset image to centre
 
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
@@ -54,7 +56,7 @@ battleZonesMap.forEach((row, i) => {
   });
 });
 
-console.log(battleZones);
+//Set up background and foreground
 
 const image = new Image(); // create HTML Image
 image.src = "./assets/images/town.png";
@@ -66,9 +68,10 @@ foregroundImage.src = "./assets/images/foregroundOriginal.png";
 foregroundImage.style.transform = "scale(4)";
 foregroundImage.style.imageRendering = "pixelated";
 
+//Player sprite images
+
 const playerImage = new Image();
 playerImage.src = "./assets/images/playerDown.png";
-// playerImage.onload = () => {};
 
 const playerUp = new Image();
 playerUp.src = "./assets/images/playerUp.png";
@@ -81,6 +84,8 @@ playerRight.src = "./assets/images/playerRight.png";
 
 const playerLeft = new Image();
 playerLeft.src = "./assets/images/playerLeft.png";
+
+//Create player
 
 const player = new Sprite({
   position: {

@@ -1,7 +1,6 @@
 class Sprite {
   constructor({
     position,
-    velocity,
     image,
     background,
     frames = { max: 1, hold: 10 },
