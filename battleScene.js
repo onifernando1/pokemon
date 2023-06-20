@@ -43,6 +43,8 @@ document.querySelectorAll("button").forEach((button) => {
       renderedSprites,
     });
 
+    console.log(`RECIPIENT HEALTH: ${draggle.health}`);
+
     if (draggle.health <= 0) {
       queue.push(() => {
         draggle.faint();

@@ -118,7 +118,7 @@ class Monster extends Sprite {
   }
 
   faint() {
-    console.log("faint");
+    document.querySelector("#dialogueBox").innerHTML = this.name + " fainted!";
   }
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector("#dialogueBox").style.display = "block";
@@ -147,14 +147,13 @@ class Monster extends Sprite {
         });
 
         renderedSprites.splice(1, 0, fireball);
-        console.log(renderedSprites);
 
         gsap.to(fireball.position, {
           x: recipient.position.x,
           y: recipient.position.y,
           onComplete: () => {
             gsap.to(healthBar, {
-              width: recipient.health - attack.damage + "%",
+              width: recipient.health + "%",
             });
 
             gsap.to(recipient.position, {
@@ -187,7 +186,7 @@ class Monster extends Sprite {
             duration: 0.1,
             onComplete: () => {
               gsap.to(healthBar, {
-                width: recipient.health - attack.damage + "%",
+                width: recipient.health + "%",
               });
 
               gsap.to(recipient.position, {
