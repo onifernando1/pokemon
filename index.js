@@ -316,8 +316,8 @@ function animate() {
       });
   }
 }
-
-// animate();
+document.querySelector("#userInterface").style.display = "none";
+animate();
 
 window.addEventListener("keydown", (e) => {
   // Listen to key movements to move player
@@ -358,4 +358,10 @@ window.addEventListener("keyup", (e) => {
       keys.d.pressed = false;
       break;
   }
+});
+
+let clicked = false;
+window.addEventListener("click", () => {
+  if (!clicked) audio.Map.play();
+  clicked = true;
 });
