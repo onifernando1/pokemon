@@ -21,8 +21,9 @@ emby.attacks.forEach((attack) => {
   document.querySelector("#attacksBox").append(button);
 });
 
+let battleAnimationId = 0;
 function animateBattle() {
-  window.requestAnimationFrame(animateBattle);
+  battleAnimationId = window.requestAnimationFrame(animateBattle);
   battleBackground.draw();
 
   renderedSprites.forEach((sprite) => {
@@ -52,6 +53,13 @@ document.querySelectorAll("button").forEach((button) => {
       queue.push(() => {
         gsap.to("#transition", {
           opacity: 1,
+          onComplete: () => {
+            cancelAnimationFrame(battleAnimationId);
+            animate();
+            gsap.to("#transition", {
+              opacity: 0,
+            });
+          },
         });
       });
 
