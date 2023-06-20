@@ -68,17 +68,38 @@ function setUpBattleZones() {
 
 const battleZones = setUpBattleZones();
 
-//Set up background and foreground
+function setUpBackground() {
+  const image = new Image(); // create HTML Image
+  image.src = "./assets/images/town.png";
+  image.style.transform = "scale(4)";
+  image.style.imageRendering = "pixelated";
+  const background = new Sprite({
+    position: { x: offset.x, y: offset.y },
+    image: image,
+    background: true,
+  });
 
-const image = new Image(); // create HTML Image
-image.src = "./assets/images/town.png";
-image.style.transform = "scale(4)";
-image.style.imageRendering = "pixelated";
+  return background;
+}
 
-const foregroundImage = new Image(); // create HTML Image
-foregroundImage.src = "./assets/images/foregroundOriginal.png";
-foregroundImage.style.transform = "scale(4)";
-foregroundImage.style.imageRendering = "pixelated";
+const background = setUpBackground();
+
+function setUpForeground() {
+  const foregroundImage = new Image(); // create HTML Image
+  foregroundImage.src = "./assets/images/foregroundOriginal.png";
+  foregroundImage.style.transform = "scale(4)";
+  foregroundImage.style.imageRendering = "pixelated";
+
+  const foreground = new Sprite({
+    background: true,
+    image: foregroundImage,
+    position: { x: offset.x, y: offset.y },
+  });
+
+  return foreground;
+}
+
+const foreground = setUpForeground();
 
 //Player sprite images
 
@@ -114,17 +135,17 @@ const player = new Sprite({
   },
 });
 
-const background = new Sprite({
-  position: { x: offset.x, y: offset.y },
-  image: image,
-  background: true,
-});
+// const background = new Sprite({
+//   position: { x: offset.x, y: offset.y },
+//   image: image,
+//   background: true,
+// });
 
-const foreground = new Sprite({
-  background: true,
-  image: foregroundImage,
-  position: { x: offset.x, y: offset.y },
-});
+// const foreground = new Sprite({
+//   background: true,
+//   image: foregroundImage,
+//   position: { x: offset.x, y: offset.y },
+// });
 
 const keys = {
   // Check if key pressed
