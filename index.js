@@ -346,14 +346,12 @@ const emby = new Sprite({
   animate: true,
 });
 
-const renderedSprites = [];
+const renderedSprites = [draggle, emby];
 
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
-  console.log("animating battle");
   battleBackground.draw();
-  draggle.draw();
-  emby.draw();
+
   renderedSprites.forEach((sprite) => {
     sprite.draw();
   });
@@ -361,9 +359,7 @@ function animateBattle() {
 
 animateBattle();
 
-addEventListener("click", () => {
-  console.log("clicked");
-});
+// addEventListener("click", () => {});
 
 document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", (e) => {
