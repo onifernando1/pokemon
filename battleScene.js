@@ -41,19 +41,40 @@ function animateBattle() {
 
 animateBattle();
 
-// addEventListener("click", () => {});
+const queue = [];
 
 document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", (e) => {
     const selectedAttack = attacks[e.target.innerHTML];
-    draggle.attack({
+    emby.attack({
       attack: selectedAttack,
-      recipient: emby,
+      recipient: draggle,
       renderedSprites,
+    });
+
+    queue.push(() => {
+      draggle.attack({
+        attack: attacks.Tackle,
+        recipient: emby,
+        renderedSprites,
+      });
+    });
+
+    queue.push(() => {
+      draggle.attack({
+        attack: attacks.Fireball,
+        recipient: emby,
+        renderedSprites,
+      });
     });
   });
 });
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
-  e.currentTarget.style.display = "none";
+  if (queue.length > 0) {
+    queue[0]();
+    queue.shift();
+  } else {
+    e.currentTarget.style.display = "none";
+  }
 });
