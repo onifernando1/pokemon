@@ -11,7 +11,7 @@ class Sprite {
   }) {
     // object prevents order mattering
     this.position = position;
-    this.image = image;
+    this.image = new Image();
     this.background = background;
     this.frames = { ...frames, val: 0, elapsed: 0 };
     this.opacity = 1;
@@ -20,6 +20,8 @@ class Sprite {
       this.width = this.image.width / this.frames.max; // will only work when image loaded
       this.height = this.image.height;
     };
+
+    this.image.src = image.src;
 
     this.animate = animate;
     this.sprites = sprites;
