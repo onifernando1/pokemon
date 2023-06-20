@@ -92,7 +92,8 @@ class Sprite {
 
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector("#dialogueBox").style.display = "block";
-    document.querySelector("#dialogueBox").innerHTML;
+    document.querySelector("#dialogueBox").innerHTML =
+      this.name + " used " + attack.name;
 
     let healthBar = "#enemyHealthBar";
     if (this.isEnemy) healthBar = "#playerHealthbar";
