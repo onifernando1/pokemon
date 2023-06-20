@@ -187,6 +187,10 @@ function animate() {
         // deactivate old animation loop
         window.cancelAnimationFrame(animationId);
 
+        audio.Map.stop();
+        audio.initBattle.play();
+        audio.battle.play();
+
         battle.initiated = true;
 
         gsap.to("#transition", {
