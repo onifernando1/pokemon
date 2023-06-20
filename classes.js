@@ -80,12 +80,15 @@ class Sprite {
     let movementDistance = 20;
     if (this.isEnemy) movementDistance = -20;
 
+    let healthBar = "#enemyHealthBar";
+    if (this.isEnemy) healthBar = "#playerHealthbar";
+
     tl.to(this.position, { x: this.position.x - movementDistance })
       .to(this.position, {
         x: this.position.x + movementDistance * 2,
         duration: 0.1,
         onComplete: () => {
-          gsap.to("#enemyHealthBar", {
+          gsap.to(healthBar, {
             width: this.health - attack.damage + "%",
           });
 
