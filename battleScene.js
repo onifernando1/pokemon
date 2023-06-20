@@ -53,3 +53,7 @@ document.querySelectorAll("button").forEach((button) => {
     });
   });
 });
+
+document.querySelector("#dialogueBox").addEventListener("click", (e) => {
+  e.currentTarget.style.display = "none";
+});
