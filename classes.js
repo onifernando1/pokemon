@@ -77,6 +77,7 @@ class Sprite {
 
   attack({ attack, recipient }) {
     const tl = gsap.timeline();
+    this.health = this.health - attack.damage;
     let movementDistance = 20;
     if (this.isEnemy) movementDistance = -20;
 
