@@ -149,6 +149,32 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 
 const battle = { initiated: false };
 
+function startBatlle() {}
+
+function triggerBattleAnimation() {
+  gsap.to("#transition", {
+    opacity: 1,
+    repeat: 3,
+    yoyo: true,
+    duration: 0.4,
+    onComplete() {
+      gsap.to("#transition", {
+        opacity: 1,
+        duration: 0.4,
+        onComplete() {
+          // activate new animation loop
+          initBattle();
+          animateBattle();
+          gsap.to("#transition", {
+            opacity: 0,
+            duration: 0.4,
+          });
+        },
+      });
+    },
+  });
+}
+
 function animate() {
   const animationId = window.requestAnimationFrame(animate); // arg = function to be called recursively
   c.imageSmoothingEnabled = false; // Disable image smoothing
@@ -156,10 +182,6 @@ function animate() {
 
   boundaries.forEach((boundary) => {
     boundary.draw();
-
-    if (rectangularCollision({ rectangle1: player, rectangle2: boundary })) {
-      //if right side of player (player position + width) touches boundaries x, it colllide)
-    }
   });
 
   battleZones.forEach((battleZone) => {
@@ -177,7 +199,7 @@ function animate() {
 
   if (keys.a.pressed || keys.w.pressed || keys.s.pressed || keys.d.pressed) {
     for (let i = 0; i < battleZones.length; i++) {
-      //loop through every boundary
+      //loop through every battlezone
       const battleZone = battleZones[i];
       const overlappingArea =
         (Math.min(
@@ -210,27 +232,8 @@ function animate() {
 
         battle.initiated = true;
 
-        gsap.to("#transition", {
-          opacity: 1,
-          repeat: 3,
-          yoyo: true,
-          duration: 0.4,
-          onComplete() {
-            gsap.to("#transition", {
-              opacity: 1,
-              duration: 0.4,
-              onComplete() {
-                // activate new animation loop
-                initBattle();
-                animateBattle();
-                gsap.to("#transition", {
-                  opacity: 0,
-                  duration: 0.4,
-                });
-              },
-            });
-          },
-        });
+        triggerBattleAnimation();
+
         break; // break out as soon as collision, otherwise collision will be false with other boundaries, so not working
       }
     }
