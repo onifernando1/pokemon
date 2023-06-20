@@ -38,51 +38,35 @@ function setUpCollisions() {
 
 const boundaries = setUpCollisions();
 
-// const collisionsMap = [];
+function setUpBattleZones() {
+  const battleZonesMap = [];
 
-// for (let i = 0; i < collisions.length; i += 70) {
-//   // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
-//   collisionsMap.push(collisions.slice(i, i + 70));
-// }
+  for (let i = 0; i < battleZonesData.length; i += 70) {
+    // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
+    battleZonesMap.push(battleZonesData.slice(i, i + 70));
+  }
 
-const battleZonesMap = [];
+  const battleZones = [];
 
-for (let i = 0; i < battleZonesData.length; i += 70) {
-  // loop through 70 tiles(Width ) (check size by map resize -> 70 tiles wide)
-  battleZonesMap.push(battleZonesData.slice(i, i + 70));
+  battleZonesMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+      if (symbol == 1025)
+        // only create boundary if boundary exists
+        battleZones.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y,
+            },
+          })
+        );
+    });
+  });
+
+  return battleZones;
 }
 
-// collisionsMap.forEach((row, i) => {
-//   row.forEach((symbol, j) => {
-//     if (symbol == 1025)
-//       // only create boundary if boundary exists
-//       boundaries.push(
-//         new Boundary({
-//           position: {
-//             x: j * Boundary.width + offset.x,
-//             y: i * Boundary.height + offset.y,
-//           },
-//         })
-//       );
-//   });
-// });
-
-const battleZones = [];
-
-battleZonesMap.forEach((row, i) => {
-  row.forEach((symbol, j) => {
-    if (symbol == 1025)
-      // only create boundary if boundary exists
-      battleZones.push(
-        new Boundary({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y,
-          },
-        })
-      );
-  });
-});
+const battleZones = setUpBattleZones();
 
 //Set up background and foreground
 
