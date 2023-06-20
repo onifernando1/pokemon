@@ -79,6 +79,10 @@ class Sprite {
         x: this.position.x + 40,
         duration: 0.1,
         onComplete() {
+          gsap.to("#enemyHealthBar", {
+            width: "50%",
+          });
+
           gsap.to(recipient.position, {
             x: recipient.position.x + 10,
             yoyo: true,
