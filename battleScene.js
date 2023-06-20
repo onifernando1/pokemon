@@ -49,6 +49,12 @@ document.querySelectorAll("button").forEach((button) => {
       queue.push(() => {
         draggle.faint();
       });
+      queue.push(() => {
+        gsap.to("#transition", {
+          opacity: 1,
+        });
+      });
+
       return;
     }
 
@@ -62,6 +68,13 @@ document.querySelectorAll("button").forEach((button) => {
         renderedSprites,
       });
     });
+
+    if (emby.health <= 0) {
+      queue.push(() => {
+        emby.faint();
+      });
+      return;
+    }
   });
 
   button.addEventListener("mouseenter", (e) => {
