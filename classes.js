@@ -127,6 +127,7 @@ class Monster extends Sprite {
     gsap.to(this, {
       opacity: 0,
     });
+    audio.battle.stop();
   }
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector("#dialogueBox").style.display = "block";
