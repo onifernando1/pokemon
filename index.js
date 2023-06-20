@@ -101,51 +101,43 @@ function setUpForeground() {
 
 const foreground = setUpForeground();
 
-//Player sprite images
+function createPlayer() {
+  const playerImage = new Image();
+  playerImage.src = "./assets/images/playerDown.png";
 
-const playerImage = new Image();
-playerImage.src = "./assets/images/playerDown.png";
+  const playerUp = new Image();
+  playerUp.src = "./assets/images/playerUp.png";
 
-const playerUp = new Image();
-playerUp.src = "./assets/images/playerUp.png";
+  const playerDown = new Image();
+  playerDown.src = "./assets/images/playerDown.png";
 
-const playerDown = new Image();
-playerDown.src = "./assets/images/playerDown.png";
+  const playerRight = new Image();
+  playerRight.src = "./assets/images/playerRight.png";
 
-const playerRight = new Image();
-playerRight.src = "./assets/images/playerRight.png";
+  const playerLeft = new Image();
+  playerLeft.src = "./assets/images/playerLeft.png";
 
-const playerLeft = new Image();
-playerLeft.src = "./assets/images/playerLeft.png";
+  //Create player
 
-//Create player
+  const player = new Sprite({
+    position: {
+      x: canvas.width / 2 - 192 / 4 / 2,
+      y: canvas.height / 2 - 68 / 2,
+    },
+    image: playerImage,
+    frames: { max: 4, hold: 10 },
+    sprites: {
+      up: playerUp,
+      down: playerDown,
+      right: playerRight,
+      left: playerLeft,
+    },
+  });
 
-const player = new Sprite({
-  position: {
-    x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 68 / 2,
-  },
-  image: playerImage,
-  frames: { max: 4, hold: 10 },
-  sprites: {
-    up: playerUp,
-    down: playerDown,
-    right: playerRight,
-    left: playerLeft,
-  },
-});
+  return player;
+}
 
-// const background = new Sprite({
-//   position: { x: offset.x, y: offset.y },
-//   image: image,
-//   background: true,
-// });
-
-// const foreground = new Sprite({
-//   background: true,
-//   image: foregroundImage,
-//   position: { x: offset.x, y: offset.y },
-// });
+const player = createPlayer();
 
 const keys = {
   // Check if key pressed
