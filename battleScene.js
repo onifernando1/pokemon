@@ -56,6 +56,7 @@ document.querySelectorAll("button").forEach((button) => {
           onComplete: () => {
             cancelAnimationFrame(battleAnimationId);
             animate();
+            document.querySelector("#userInterface").style.display = "none";
             gsap.to("#transition", {
               opacity: 0,
             });

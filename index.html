@@ -10,40 +10,43 @@
 <div class="container">
   <div class="transition" id="transition"></div>
   <canvas></canvas>
-  <div class="attack-bar">
-    <div class="attack-options" id="attacksBox">
-      <!-- <button>Tackle</button>
-      <button>Fireball</button> -->
+  <div id="userInterface">
+        <div class="attack-bar">
+            <div class="attack-options" id="attacksBox">
+                <!-- <button>Tackle</button>
+            <button>Fireball</button> -->
+            </div>
+            <div class="attack-type"><h1 id="attackType">Attack Type</h1></div>
+            <div class="attack-dialogue" id="dialogueBox">ATTACK DIALOGUE</div>
+            </div>
+            <div class="health-bar opponent">
+            <div>Draggle</div>
+            <div class="health-indicator-container">
+                <div class="health-indicator-background"></div>
+                <div class="health-indicator" id="enemyHealthBar"></div>
+            </div>
+            <div class="health-bar player">
+                <div>Emby</div>
+                <div class="health-indicator-container">
+                <div class="health-indicator-background"></div>
+                <div class="health-indicator" id="playerHealthBar"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="attack-type"><h1 id="attackType">Attack Type</h1></div>
-    <div class="attack-dialogue" id="dialogueBox">ATTACK DIALOGUE</div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+      integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./data/battleZones.js" defer></script>
+    <script src="./data/collissions.js" defer></script>
+    <script src="./data/attacks.js" defer></script>
+    <script src="./data/monsters.js" defer></script>
+    <script src="classes.js" defer></script>
+    <script src="index.js" defer></script>
+    <script src="battleScene.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
   </div>
-  <div class="health-bar opponent">
-    <div>Draggle</div>
-    <div class="health-indicator-container">
-      <div class="health-indicator-background"></div>
-      <div class="health-indicator" id="enemyHealthBar"></div>
-    </div>
-    <div class="health-bar player">
-      <div>Emby</div>
-      <div class="health-indicator-container">
-        <div class="health-indicator-background"></div>
-        <div class="health-indicator" id="playerHealthBar"></div>
-      </div>
-    </div>
-  </div>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
-    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-  <script src="./data/battleZones.js" defer></script>
-  <script src="./data/collissions.js" defer></script>
-  <script src="./data/attacks.js" defer></script>
-  <script src="./data/monsters.js" defer></script>
-  <script src="classes.js" defer></script>
-  <script src="index.js" defer></script>
-  <script src="battleScene.js" defer></script>
-  <link rel="stylesheet" href="styles.css" />
 </div>
