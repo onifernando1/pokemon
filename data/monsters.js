@@ -16,4 +16,12 @@ const monsters = {
     name: "Draggle",
     attacks: [attacks.Tackle, attacks.Fireball],
   },
+  Kitty: {
+    position: { x: 280, y: 325 },
+    image: { src: "./assets/images/embySprite.png" },
+    frames: { max: 1, hold: 30 },
+    animate: false,
+    name: "Kitty",
+    attacks: [attacks.Tackle, attacks.Fireball],
+  },
 };
