@@ -77,6 +77,14 @@ class Sprite {
 
   attack({ attack, recipient }) {
     switch (attack.name) {
+      case "Fireball":
+        const fireballImage = new Image();
+        fireballImage.src = "./assets/images/fireball.png";
+        const fireball = new Sprite({
+          position: { x: this.position.x, y: this.position.y },
+          image: fireballImage,
+        });
+        break;
       case "Tackle":
         const tl = gsap.timeline();
         this.health -= attack.damage;

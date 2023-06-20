@@ -346,12 +346,17 @@ const emby = new Sprite({
   animate: true,
 });
 
+const renderedSprites = [];
+
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
   console.log("animating battle");
   battleBackground.draw();
   draggle.draw();
   emby.draw();
+  renderedSprites.forEach((sprite) => {
+    sprite.draw();
+  });
 }
 
 animateBattle();
