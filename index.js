@@ -364,9 +364,9 @@ animateBattle();
 document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", (e) => {
     const selectedAttack = attacks[e.target.innerHTML];
-    emby.attack({
+    draggle.attack({
       attack: selectedAttack,
-      recipient: draggle,
+      recipient: emby,
       renderedSprites,
     });
   });
