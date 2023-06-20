@@ -361,10 +361,11 @@ addEventListener("click", () => {
 });
 
 document.querySelectorAll("button").forEach((button) => {
-  button.addEventListener("click", () => {
-    draggle.attack({
-      attack: { name: "Tackle", damage: 10, type: "Normal" },
-      recipient: emby,
+  button.addEventListener("click", (e) => {
+    const selectedAttack = attacks[e.target.innerHTML];
+    emby.attack({
+      attack: selectedAttack,
+      recipient: draggle,
     });
   });
 });
