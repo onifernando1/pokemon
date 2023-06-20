@@ -56,6 +56,7 @@ function initBattle() {
               gsap.to("#transition", {
                 opacity: 0,
               });
+              battle.initiated = false;
             },
           });
         });
@@ -77,7 +78,22 @@ function initBattle() {
       if (emby.health <= 0) {
         queue.push(() => {
           emby.faint();
+          queue.push(() => {
+            gsap.to("#transition", {
+              opacity: 1,
+              onComplete: () => {
+                cancelAnimationFrame(battleAnimationId);
+                animate();
+                document.querySelector("#userInterface").style.display = "none";
+                gsap.to("#transition", {
+                  opacity: 0,
+                });
+                battle.initiated = false;
+              },
+            });
+          });
         });
+
         return;
       }
     });
