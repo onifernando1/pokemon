@@ -5,30 +5,15 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage,
 });
 
-const draggleImage = new Image();
-draggleImage.src = "./assets/images/draggleSprite.png";
+const draggle = new Sprite(monsters.Draggle);
 
-const draggle = new Sprite({
-  position: { x: 800, y: 100 },
-  image: draggleImage,
-  frames: { max: 4, hold: 30 },
-  animate: true,
-  isEnemy: true,
-  name: "Draggle",
-});
-
-const embyImage = new Image();
-embyImage.src = "./assets/images/embySprite.png";
-
-const emby = new Sprite({
-  position: { x: 280, y: 325 },
-  image: embyImage,
-  frames: { max: 4, hold: 30 },
-  animate: true,
-  name: "Emby",
-});
+const emby = new Sprite(monsters.Emby);
 
 const renderedSprites = [draggle, emby];
+
+const button = document.createElement("button");
+button.innerHTML = "Fireball";
+document.querySelector("#attacksBox").append(button);
 
 function animateBattle() {
   window.requestAnimationFrame(animateBattle);
