@@ -371,6 +371,7 @@ document.querySelectorAll("button").forEach((button) => {
     emby.attack({
       attack: selectedAttack,
       recipient: draggle,
+      renderedSprites,
     });
   });
 });
