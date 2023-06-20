@@ -7,9 +7,7 @@ class Sprite {
     frames = { max: 1, hold: 10 },
     sprites = [],
     animate = false,
-    isEnemy = false,
     rotation = 0,
-    name,
   }) {
     // object prevents order mattering
     this.position = position;
@@ -25,10 +23,7 @@ class Sprite {
 
     this.animate = animate;
     this.sprites = sprites;
-    this.health = 100;
-    this.isEnemy = isEnemy;
     this.rotation = rotation;
-    this.name = name;
   }
 
   draw() {
@@ -89,7 +84,35 @@ class Sprite {
       }
     }
   }
+}
 
+class Monster extends Sprite {
+  constructor({
+    isEnemy = false,
+    name,
+    position,
+    velocity,
+    image,
+    background,
+    frames = { max: 1, hold: 10 },
+    sprites = [],
+    animate = false,
+    rotation = 0,
+  }) {
+    super({
+      position,
+      velocity,
+      image,
+      background,
+      frames,
+      sprites,
+      animate,
+      rotation,
+    });
+    this.name = name;
+    this.isEnemy = isEnemy;
+    this.health = 100;
+  }
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector("#dialogueBox").style.display = "block";
     document.querySelector("#dialogueBox").innerHTML =

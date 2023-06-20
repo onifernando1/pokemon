@@ -5,9 +5,9 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage,
 });
 
-const draggle = new Sprite(monsters.Draggle);
+const draggle = new Monster(monsters.Draggle);
 
-const emby = new Sprite(monsters.Emby);
+const emby = new Monster(monsters.Emby);
 
 const renderedSprites = [draggle, emby];
 
