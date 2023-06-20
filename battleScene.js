@@ -5,23 +5,84 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage,
 });
 
-const draggle = new Monster(monsters.Draggle);
+let draggle;
 
-const emby = new Monster(monsters.Emby);
+let emby;
 
-console.log(monsters.Emby);
-
-const renderedSprites = [draggle, emby];
-
-console.log(emby.attacks);
-
-emby.attacks.forEach((attack) => {
-  const button = document.createElement("button");
-  button.innerHTML = attack.name;
-  document.querySelector("#attacksBox").append(button);
-});
+let renderedSprites;
 
 let battleAnimationId = 0;
+
+let queue;
+
+function initBattle() {
+  draggle = new Monster(monsters.Draggle);
+  emby = new Monster(monsters.Emby);
+  renderedSprites = [draggle, emby];
+  emby.attacks.forEach((attack) => {
+    const button = document.createElement("button");
+    button.innerHTML = attack.name;
+    document.querySelector("#attacksBox").append(button);
+  });
+  queue = [];
+  document.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const selectedAttack = attacks[e.target.innerHTML];
+      emby.attack({
+        attack: selectedAttack,
+        recipient: draggle,
+        renderedSprites,
+      });
+
+      console.log(`RECIPIENT HEALTH: ${draggle.health}`);
+
+      if (draggle.health <= 0) {
+        queue.push(() => {
+          draggle.faint();
+        });
+        queue.push(() => {
+          gsap.to("#transition", {
+            opacity: 1,
+            onComplete: () => {
+              cancelAnimationFrame(battleAnimationId);
+              animate();
+              document.querySelector("#userInterface").style.display = "none";
+              gsap.to("#transition", {
+                opacity: 0,
+              });
+            },
+          });
+        });
+
+        return;
+      }
+
+      const randomAttack =
+        draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)];
+
+      queue.push(() => {
+        draggle.attack({
+          attack: randomAttack,
+          recipient: emby,
+          renderedSprites,
+        });
+      });
+
+      if (emby.health <= 0) {
+        queue.push(() => {
+          emby.faint();
+        });
+        return;
+      }
+    });
+
+    button.addEventListener("mouseenter", (e) => {
+      const selectedAttack = attacks[e.target.innerHTML];
+      document.querySelector("#attackType").innerHTML = selectedAttack.type;
+      document.querySelector("#attackType").style.color = selectedAttack.color;
+    });
+  });
+}
 function animateBattle() {
   battleAnimationId = window.requestAnimationFrame(animateBattle);
   battleBackground.draw();
@@ -31,67 +92,8 @@ function animateBattle() {
   });
 }
 
+initBattle();
 animateBattle();
-
-const queue = [];
-
-document.querySelectorAll("button").forEach((button) => {
-  button.addEventListener("click", (e) => {
-    const selectedAttack = attacks[e.target.innerHTML];
-    emby.attack({
-      attack: selectedAttack,
-      recipient: draggle,
-      renderedSprites,
-    });
-
-    console.log(`RECIPIENT HEALTH: ${draggle.health}`);
-
-    if (draggle.health <= 0) {
-      queue.push(() => {
-        draggle.faint();
-      });
-      queue.push(() => {
-        gsap.to("#transition", {
-          opacity: 1,
-          onComplete: () => {
-            cancelAnimationFrame(battleAnimationId);
-            animate();
-            document.querySelector("#userInterface").style.display = "none";
-            gsap.to("#transition", {
-              opacity: 0,
-            });
-          },
-        });
-      });
-
-      return;
-    }
-
-    const randomAttack =
-      draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)];
-
-    queue.push(() => {
-      draggle.attack({
-        attack: randomAttack,
-        recipient: emby,
-        renderedSprites,
-      });
-    });
-
-    if (emby.health <= 0) {
-      queue.push(() => {
-        emby.faint();
-      });
-      return;
-    }
-  });
-
-  button.addEventListener("mouseenter", (e) => {
-    const selectedAttack = attacks[e.target.innerHTML];
-    document.querySelector("#attackType").innerHTML = selectedAttack.type;
-    document.querySelector("#attackType").style.color = selectedAttack.color;
-  });
-});
 
 document.querySelector("#dialogueBox").addEventListener("click", (e) => {
   if (queue.length > 0) {
