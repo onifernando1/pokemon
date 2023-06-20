@@ -8,6 +8,7 @@ class Sprite {
     sprites = [],
     animate = false,
     isEnemy = false,
+    rotation = 0,
   }) {
     // object prevents order mattering
     this.position = position;
@@ -25,6 +26,7 @@ class Sprite {
     this.sprites = sprites;
     this.health = 100;
     this.isEnemy = isEnemy;
+    this.rotation = rotation;
   }
 
   draw() {
@@ -40,6 +42,17 @@ class Sprite {
       ); // Start at house
     } else {
       c.save(); // if global property used, only affects this not rest of canvas
+
+      //   ); // move rotation axis to center of sprite
+      c.translate(
+        this.position.x + this.width / 2,
+        this.position.y + this.height / 2
+      );
+      c.rotate(this.rotation);
+      c.translate(
+        -this.position.x - this.width / 2,
+        -this.position.y - this.height / 2
+      );
       c.globalAlpha = this.opacity;
       c.drawImage(
         this.image,
@@ -90,6 +103,7 @@ class Sprite {
           image: fireballImage,
           frames: { max: 4, hold: 10 },
           animate: true,
+          rotation: 1,
         });
 
         renderedSprites.splice(1, 0, fireball);
